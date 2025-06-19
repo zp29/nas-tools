@@ -483,6 +483,34 @@ class WebAction:
                 media.user_name = current_user.username
                 Message().send_download_message(in_from=SearchType.WEB,
                                                 can_item=media)
+                
+                # 调用外部API
+                try:
+                    enclosure = media.enclosure
+                    if enclosure:
+                        # API请求头
+                        headers = {
+                            'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InpwMjkiLCJpZCI6MSwiZXhwIjoxNzUwOTAxMzg2fQ.P-TQGiuhloseT5S_mlIH7sNQjRKOrjxOVDOdMqU-83I',
+                            'priority': 'u=1, i',
+                            'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                            'content-type': 'application/json',
+                            'Accept': '*/*',
+                            'Host': 'cms.zp29.xyz:29',
+                            'Connection': 'keep-alive'
+                        }
+                        
+                        # API请求体
+                        request_body = {
+                            "url": enclosure
+                        }
+                        
+                        # 发送API请求
+                        api_url = 'https://cms.zp29.xyz:29/api/cloud/add_share_down'
+                        req = RequestUtils(headers=headers, content_type="application/json")
+                        res = req.post_res(url=api_url, json=request_body)
+                        log.info(f"外部API调用结果：{res.text if res else '请求失败'}")
+                except Exception as e:
+                    log.error(f"调用外部API出错：{str(e)}")
             else:
                 return {"retcode": -1, "retmsg": ret_msg}
         return {"retcode": 0, "retmsg": ""}
