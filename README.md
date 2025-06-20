@@ -8,6 +8,7 @@
 [![Docker pulls](https://img.shields.io/docker/pulls/hsuyelin/nas-tools?style=plastic)](https://hub.docker.com/r/hsuyelin/nas-tools)
 [![Platform](https://img.shields.io/badge/platform-amd64/arm64-pink?style=plastic)](https://hub.docker.com/r/hsuyelin/nas-tools)
 
+
 ## zp29维护声明
 
 1）本维护项目为[nas-tools](https://github.com/NAStool/nas-tools)维护项目非官方项目；  
@@ -33,7 +34,7 @@ docker pull zp29/nas-tools:latest
 ### 2、本地Docker运行
 仅支持python3.10版本，需要预安装cython（python3 -m pip install Cython），如发现缺少依赖包需额外安装：
 ```
-git clone -b master https://github.com/zp29/zp29/nas-tools-291-cms --recurse-submodule 
+git clone -b master https://github.com/zp29/zp29/nas-tools --recurse-submodule 
 cd nas-tools-291-cms
 docker build -t zp29/nas-tools:latest -f docker/Dockerfile .
 docker-compose up -d
